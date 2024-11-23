@@ -77,30 +77,6 @@ class VirtKeyAdapter extends TypeAdapter<VirtKey> {
         return VirtKey.colon;
       case 31:
         return VirtKey.semicolon;
-      case 32:
-        return VirtKey.f1;
-      case 33:
-        return VirtKey.f2;
-      case 34:
-        return VirtKey.f3;
-      case 35:
-        return VirtKey.f4;
-      case 36:
-        return VirtKey.f5;
-      case 37:
-        return VirtKey.f6;
-      case 38:
-        return VirtKey.f7;
-      case 39:
-        return VirtKey.f8;
-      case 40:
-        return VirtKey.f9;
-      case 41:
-        return VirtKey.f10;
-      case 42:
-        return VirtKey.f11;
-      case 43:
-        return VirtKey.f12;
       default:
         return VirtKey.esc;
     }
@@ -204,42 +180,6 @@ class VirtKeyAdapter extends TypeAdapter<VirtKey> {
         break;
       case VirtKey.semicolon:
         writer.writeByte(31);
-        break;
-      case VirtKey.f1:
-        writer.writeByte(32);
-        break;
-      case VirtKey.f2:
-        writer.writeByte(33);
-        break;
-      case VirtKey.f3:
-        writer.writeByte(34);
-        break;
-      case VirtKey.f4:
-        writer.writeByte(35);
-        break;
-      case VirtKey.f5:
-        writer.writeByte(36);
-        break;
-      case VirtKey.f6:
-        writer.writeByte(37);
-        break;
-      case VirtKey.f7:
-        writer.writeByte(38);
-        break;
-      case VirtKey.f8:
-        writer.writeByte(39);
-        break;
-      case VirtKey.f9:
-        writer.writeByte(40);
-        break;
-      case VirtKey.f10:
-        writer.writeByte(41);
-        break;
-      case VirtKey.f11:
-        writer.writeByte(42);
-        break;
-      case VirtKey.f12:
-        writer.writeByte(43);
         break;
     }
   }

@@ -75,30 +75,7 @@ enum VirtKey {
   colon,
   @HiveField(31)
   semicolon,
-  @HiveField(32)
-  f1,
-  @HiveField(33)
-  f2,
-  @HiveField(34)
-  f3,
-  @HiveField(35)
-  f4,
-  @HiveField(36)
-  f5,
-  @HiveField(37)
-  f6,
-  @HiveField(38)
-  f7,
-  @HiveField(39)
-  f8,
-  @HiveField(40)
-  f9,
-  @HiveField(41)
-  f10,
-  @HiveField(42)
-  f11,
-  @HiveField(43)
-  f12;
+  ;
 }
 
 extension VirtKeyX on VirtKey {
@@ -169,18 +146,6 @@ extension VirtKeyX on VirtKey {
         VirtKey.right => TerminalKey.arrowRight,
         VirtKey.pgup => TerminalKey.pageUp,
         VirtKey.pgdn => TerminalKey.pageDown,
-        VirtKey.f1 => TerminalKey.f1,
-        VirtKey.f2 => TerminalKey.f2,
-        VirtKey.f3 => TerminalKey.f3,
-        VirtKey.f4 => TerminalKey.f4,
-        VirtKey.f5 => TerminalKey.f5,
-        VirtKey.f6 => TerminalKey.f6,
-        VirtKey.f7 => TerminalKey.f7,
-        VirtKey.f8 => TerminalKey.f8,
-        VirtKey.f9 => TerminalKey.f9,
-        VirtKey.f10 => TerminalKey.f10,
-        VirtKey.f11 => TerminalKey.f11,
-        VirtKey.f12 => TerminalKey.f12,
         _ => null,
       };
 
