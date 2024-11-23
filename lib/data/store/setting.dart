@@ -130,6 +130,9 @@ class SettingStore extends PersistentStore {
   /// Only valid on iOS / Android / Windows
   late final useBioAuth = property('useBioAuth', false);
 
+  /// Delay to lock the App with BioAuth
+  late final delayBioAuthLock = property('delayBioAuthLock', false);
+
   /// The performance of highlight is bad
   late final editorHighlight = property('editorHighlight', true);
 

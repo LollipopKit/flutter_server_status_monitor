@@ -30,6 +30,7 @@ class _HomePageState extends State<HomePage>
 
   bool _switchingPage = false;
   bool _shouldAuth = false;
+  DateTime? _pausedTime;
 
   @override
   void dispose() {
@@ -72,13 +73,28 @@ class _HomePageState extends State<HomePage>
 
     switch (state) {
       case AppLifecycleState.resumed:
-        if (_shouldAuth) _goAuth();
+        if (_shouldAuth) {
+          if (Stores.setting.delayBioAuthLock.fetch() && _pausedTime != null) {
+            if (DateTime.now()
+                    .difference(_pausedTime ?? DateTime.now())
+                    .inSeconds >
+                10) {
+              _goAuth();
+            } else {
+              _shouldAuth = false;
+            }
+            _pausedTime = null;
+          } else {
+            _goAuth();
+          }
+        }
         if (!ServerProvider.isAutoRefreshOn) {
           ServerProvider.startAutoRefresh();
         }
         HomeWidgetMC.update();
         break;
       case AppLifecycleState.paused:
+        _pausedTime = DateTime.now();
         _shouldAuth = true;
         // Keep running in background on Android device
         if (isAndroid && Stores.setting.bgRun.fetch()) {
