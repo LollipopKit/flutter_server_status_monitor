@@ -104,32 +104,53 @@ class _HomePageState extends State<HomePage>
 
     return Scaffold(
       appBar: _AppBar(sysPadding.top),
-      body: PageView.builder(
-        controller: _pageController,
-        itemCount: AppTab.values.length,
-        physics: const NeverScrollableScrollPhysics(),
-        itemBuilder: (_, index) => AppTab.values[index].page,
-        onPageChanged: (value) {
-          FocusScope.of(context).unfocus();
-          if (!_switchingPage) {
-            _selectIndex.value = value;
-          }
-        },
+      body: Row(
+        children: [
+          if (isDesktop)
+            ValBuilder(
+              listenable: _isLandscape,
+              builder: (ls) {
+                return Stores.setting.fullScreen.fetch()
+                    ? UIs.placeholder
+                    : ListenableBuilder(
+                        listenable: _selectIndex,
+                        builder: (_, __) => _buildSideBar(ls),
+                      );
+              },
+            ),
+          Expanded(
+            child: PageView.builder(
+              controller: _pageController,
+              itemCount: AppTab.values.length,
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder: (_, index) => AppTab.values[index].page,
+              onPageChanged: (value) {
+                FocusScope.of(context).unfocus();
+                if (!_switchingPage) {
+                  _selectIndex.value = value;
+                }
+              },
+            ),
+          ),
+        ],
       ),
-      bottomNavigationBar: ValBuilder(
-        listenable: _isLandscape,
-        builder: (ls) {
-          return Stores.setting.fullScreen.fetch()
-              ? UIs.placeholder
-              : ListenableBuilder(
-                  listenable: _selectIndex,
-                  builder: (_, __) => _buildBottomBar(ls),
-                );
-        },
-      ),
+      bottomNavigationBar: isDesktop
+          ? null
+          : ValBuilder(
+              listenable: _isLandscape,
+              builder: (ls) {
+                return Stores.setting.fullScreen.fetch()
+                    ? UIs.placeholder
+                    : ListenableBuilder(
+                        listenable: _selectIndex,
+                        builder: (_, __) => _buildBottomBar(ls),
+                      );
+              },
+            ),
     );
   }
 
+  // For Mobile
   Widget _buildBottomBar(bool ls) {
     return NavigationBar(
       selectedIndex: _selectIndex.value,
@@ -152,6 +173,34 @@ class _HomePageState extends State<HomePage>
           ? NavigationDestinationLabelBehavior.alwaysHide
           : NavigationDestinationLabelBehavior.onlyShowSelected,
       destinations: AppTab.navDestinations,
+    );
+  }
+
+  // For Desktop
+  Widget _buildSideBar(bool ls) {
+    return NavigationRail(
+      minExtendedWidth: 160,
+      selectedIndex: _selectIndex.value,
+      // height: kBottomNavigationBarHeight * (ls ? 0.75 : 1.1),
+      // animationDuration: const Duration(milliseconds: 250),
+      onDestinationSelected: (int index) {
+        if (_selectIndex.value == index) return;
+        _selectIndex.value = index;
+        _switchingPage = true;
+        _pageController.animateToPage(
+          index,
+          duration: const Duration(milliseconds: 677),
+          curve: Curves.fastLinearToSlowEaseIn,
+        );
+        Future.delayed(const Duration(milliseconds: 677), () {
+          _switchingPage = false;
+        });
+      },
+      // labelType: ls
+      //     ? NavigationRailLabelType.all
+      //     : NavigationRailLabelType.none,
+      destinations: AppTab.navRailDestinations,
+      extended: ls,
     );
   }
 

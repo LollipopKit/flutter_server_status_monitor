@@ -32,6 +32,7 @@ class ServerPage extends StatefulWidget {
 
 const _cardPad = 74.0;
 const _cardPadSingle = 13.0;
+var _cardDesktop = isDesktop ? 160 : 0;
 
 class _ServerPageState extends State<ServerPage>
     with AutomaticKeepAliveClientMixin, AfterLayoutMixin {
@@ -303,7 +304,7 @@ class _ServerPageState extends State<ServerPage>
   /// The child's width mat not equal to 1/4 of the screen width,
   /// so we need to wrap it with a SizedBox.
   Widget _wrapWithSizedbox(Widget child, [bool circle = false]) {
-    var width = (_media.size.width - _cardPad) / (circle ? 4 : 4.3);
+    var width = (_media.size.width - _cardPad - _cardDesktop) / (circle ? 4 : 4.3);
     if (_useDoubleColumn) width /= 2;
     return SizedBox(
       width: width,
@@ -414,7 +415,7 @@ class _ServerPageState extends State<ServerPage>
       )
     ];
 
-    final width = (_media.size.width - _cardPad) / children.length;
+    final width = (_media.size.width - _cardPad - _cardDesktop) / children.length;
     return [
       UIs.height13,
       Row(

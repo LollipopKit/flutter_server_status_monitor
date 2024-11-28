@@ -59,4 +59,13 @@ enum AppTab {
   static List<NavigationDestination> get navDestinations {
     return AppTab.values.map((e) => e.navDestination).toList();
   }
+
+  static List<NavigationRailDestination> get navRailDestinations {
+    return AppTab.values
+        .map((e) => NavigationRailDestination(
+        icon: e.navDestination.icon,
+        label: Text(e.navDestination.label),
+        selectedIcon: e.navDestination.selectedIcon))
+        .toList();
+  }
 }
