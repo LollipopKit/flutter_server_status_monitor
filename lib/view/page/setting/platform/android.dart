@@ -26,6 +26,8 @@ class _AndroidSettingsPageState extends State<AndroidSettingsPage> {
           _buildAndroidWidgetSharedPreference(),
           if (BioAuth.isPlatformSupported)
             PlatformPublicSettings.buildBioAuth(),
+          if (BioAuth.isPlatformSupported)
+            PlatformPublicSettings.buildBioAuthDelay(),
         ].map((e) => CardX(child: e)).toList(),
       ),
     );

@@ -36,6 +36,8 @@ class _IOSSettingsPageState extends State<IOSSettingsPage> {
           _buildWatchApp(),
           if (BioAuth.isPlatformSupported)
             PlatformPublicSettings.buildBioAuth(),
+          if (BioAuth.isPlatformSupported)
+            PlatformPublicSettings.buildBioAuthDelay(),
         ].map((e) => CardX(child: e)).toList(),
       ),
     );
